@@ -32,13 +32,8 @@ public class NotaFiscal {
   private Long id;
 
   @NonNull
-  // @JoinColumn(name = "pedido_id") -> Neste caso como vamos utilizar o @JoinTable, nós não precisamos utilizar o @JoinColumn
+  @JoinColumn(name = "pedido_id")
   @OneToOne
-  @JoinTable(
-    name = "pedido_nota_fiscal",
-    joinColumns = @JoinColumn(name = "nota_fiscal_id", unique = true),
-    inverseJoinColumns = @JoinColumn(name = "pedido_id", unique = true)
-  )
   private Pedido pedido;
 
   @NonNull

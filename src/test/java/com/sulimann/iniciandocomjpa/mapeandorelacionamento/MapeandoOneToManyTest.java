@@ -21,35 +21,35 @@ public class MapeandoOneToManyTest extends EntityManagerTest {
         Cliente cliente = super.entityManager.find(Cliente.class, 1L);
         Assertions.assertNotNull(cliente);
 
-        Pedido pedido = new Pedido();
-        pedido.setStatus(StatusPedido.AGUARDANDO);
-        pedido.setDataPedido(LocalDateTime.now());
-        pedido.setTotal(new BigDecimal(1000));
-        pedido.setNotaFiscalId(2L);
-        pedido.setEnderecoEntrega(new EnderecoEntregaPedido(
-                "38400-000",
-                "Rua das Laranjeiras",
-                "123",
-                "Bairro Qualquer",
-                "Apto 303",
-                "Uberlândia",
-                "MG"));
-        pedido.setCliente(cliente);
+        Pedido pedido = new Pedido(
+            LocalDateTime.now(),
+            StatusPedido.AGUARDANDO,
+            new BigDecimal(1000),
+            new EnderecoEntregaPedido(
+                "92410-720",
+                "Rua Xingu",
+                "315",
+                "Igara",
+                "Canoas",
+                "RS"
+            ),
+            cliente
+        );
 
-        Pedido pedido2 = new Pedido();
-        pedido2.setStatus(StatusPedido.AGUARDANDO);
-        pedido2.setDataPedido(LocalDateTime.now());
-        pedido2.setTotal(new BigDecimal(1500));
-        pedido2.setNotaFiscalId(3L);
-        pedido2.setEnderecoEntrega(new EnderecoEntregaPedido(
-                "38400-000",
-                "Rua das Laranjeiras",
-                "123",
-                "Bairro Qualquer",
-                "Apto 303",
-                "Uberlândia",
-                "MG"));
-        pedido2.setCliente(cliente);
+        Pedido pedido2 = new Pedido(
+            LocalDateTime.now(),
+            StatusPedido.AGUARDANDO,
+            new BigDecimal(1500),
+            new EnderecoEntregaPedido(
+                "92410-720",
+                "Rua Xingu",
+                "315",
+                "Igara",
+                "Canoas",
+                "RS"
+            ),
+            cliente
+        );
 
         super.entityManager.getTransaction().begin();
         super.entityManager.persist(pedido);
@@ -74,38 +74,41 @@ public class MapeandoOneToManyTest extends EntityManagerTest {
         Assertions.assertNotNull(produto);
         Assertions.assertNotNull(cliente);
 
-        Pedido pedido = new Pedido();
-        pedido.setStatus(StatusPedido.AGUARDANDO);
-        pedido.setDataPedido(LocalDateTime.now());
-        pedido.setTotal(new BigDecimal(1000));
-        pedido.setNotaFiscalId(2L);
-        pedido.setCliente(cliente);
-        pedido.setEnderecoEntrega(new EnderecoEntregaPedido(
-                "38400-000",
-                "Rua das Laranjeiras",
-                "123",
-                "Bairro Qualquer",
-                "Apto 303",
-                "Uberlândia",
-                "MG"));
+        Pedido pedido = new Pedido(
+            LocalDateTime.now(),
+            StatusPedido.AGUARDANDO,
+            new BigDecimal("1000.00"),
+            new EnderecoEntregaPedido(
+                "92410-720",
+                "Rua Xingu",
+                "315",
+                "Igara",
+                "Canoas",
+                "RS"
+            ),
+            cliente
+        );
 
-        ItemPedido itemPedido = new ItemPedido();
-        itemPedido.setPrecoProduto(produto.getPreco());
-        itemPedido.setQuantidade(10);
-        itemPedido.setPedido(pedido);
-        itemPedido.setProduto(produto);
+        ItemPedido itemPedido = new ItemPedido(
+            pedido,
+            produto,
+            produto.getPreco(),
+            10
+        );
 
-        ItemPedido itemPedido2 = new ItemPedido();
-        itemPedido2.setPrecoProduto(produto.getPreco());
-        itemPedido2.setQuantidade(20);
-        itemPedido2.setPedido(pedido);
-        itemPedido2.setProduto(produto);
+        ItemPedido itemPedido2 = new ItemPedido(
+            pedido,
+            produto,
+            produto.getPreco(),
+            20
+        );
 
-        ItemPedido itemPedido3 = new ItemPedido();
-        itemPedido3.setPrecoProduto(produto.getPreco());
-        itemPedido3.setQuantidade(30);
-        itemPedido3.setPedido(pedido);
-        itemPedido3.setProduto(produto);
+        ItemPedido itemPedido3 = new ItemPedido(
+            pedido,
+            produto,
+            produto.getPreco(),
+            30
+        );
 
         super.entityManager.getTransaction().begin();
         super.entityManager.persist(pedido);
@@ -131,38 +134,41 @@ public class MapeandoOneToManyTest extends EntityManagerTest {
         Assertions.assertNotNull(produto);
         Assertions.assertNotNull(cliente);
 
-        Pedido pedido = new Pedido();
-        pedido.setStatus(StatusPedido.AGUARDANDO);
-        pedido.setDataPedido(LocalDateTime.now());
-        pedido.setTotal(new BigDecimal(1000));
-        pedido.setNotaFiscalId(2L);
-        pedido.setCliente(cliente);
-        pedido.setEnderecoEntrega(new EnderecoEntregaPedido(
-                "38400-000",
-                "Rua das Laranjeiras",
-                "123",
-                "Bairro Qualquer",
-                "Apto 303",
-                "Uberlândia",
-                "MG"));
+        Pedido pedido = new Pedido(
+            LocalDateTime.now(),
+            StatusPedido.AGUARDANDO,
+            new BigDecimal("1000.00"),
+            new EnderecoEntregaPedido(
+                "92410-720",
+                "Rua Xingu",
+                "315",
+                "Igara",
+                "Canoas",
+                "RS"
+            ),
+            cliente
+        );
 
-        ItemPedido itemPedido = new ItemPedido();
-        itemPedido.setPrecoProduto(produto.getPreco());
-        itemPedido.setQuantidade(10);
-        itemPedido.setPedido(pedido);
-        itemPedido.setProduto(produto);
+        ItemPedido itemPedido = new ItemPedido(
+            pedido,
+            produto,
+            produto.getPreco(),
+            10
+        );
 
-        ItemPedido itemPedido2 = new ItemPedido();
-        itemPedido2.setPrecoProduto(produto.getPreco());
-        itemPedido2.setQuantidade(20);
-        itemPedido2.setPedido(pedido);
-        itemPedido2.setProduto(produto);
+        ItemPedido itemPedido2 = new ItemPedido(
+            pedido,
+            produto,
+            produto.getPreco(),
+            20
+        );
 
-        ItemPedido itemPedido3 = new ItemPedido();
-        itemPedido3.setPrecoProduto(produto.getPreco());
-        itemPedido3.setQuantidade(30);
-        itemPedido3.setPedido(pedido);
-        itemPedido3.setProduto(produto);
+        ItemPedido itemPedido3 = new ItemPedido(
+            pedido,
+            produto,
+            produto.getPreco(),
+            30
+        );
 
         super.entityManager.getTransaction().begin();
         super.entityManager.persist(pedido);

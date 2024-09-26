@@ -7,13 +7,11 @@ import com.sulimann.iniciandocomjpa.entities.Cliente;
 import com.sulimann.iniciandocomjpa.entities.SexoCliente;
 import com.sulimann.iniciandocomjpa.utils.EntityManagerTest;
 
-import java.util.ArrayList;
-
 public class CrudClienteTest extends EntityManagerTest {
 
     @Test
     public void inserirCliente(){
-        Cliente cliente = new Cliente(null, "Rafael", SexoCliente.MASCULINO, new ArrayList<>());
+        Cliente cliente = new Cliente("Rafael", SexoCliente.MASCULINO);
 
         super.entityManager.getTransaction().begin();
         super.entityManager.persist(cliente);

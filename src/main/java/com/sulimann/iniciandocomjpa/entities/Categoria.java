@@ -1,21 +1,15 @@
 package com.sulimann.iniciandocomjpa.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import org.hibernate.annotations.UuidGenerator;
+import lombok.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString(exclude = "categoriasFilhas")
+@NoArgsConstructor(onConstructor_ = @Deprecated)
+@RequiredArgsConstructor
+@ToString(exclude = {"categoriasFilhas", "produtos"})
 @Entity
 @Table(name = "categoria")
 public class Categoria {
@@ -23,6 +17,9 @@ public class Categoria {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
+  @NonNull
+  @Column(name = "nome")
   private String nome;
 
   @ManyToOne
@@ -31,4 +28,7 @@ public class Categoria {
 
   @OneToMany(mappedBy = "categoriaPai")
   private List<Categoria> categoriasFilhas;
+
+  @ManyToMany(mappedBy = "categorias")
+  private List<Produto> produtos;
 }

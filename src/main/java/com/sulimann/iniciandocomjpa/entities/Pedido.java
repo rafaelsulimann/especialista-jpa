@@ -5,15 +5,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString(exclude = "itens")
+@NoArgsConstructor(onConstructor_ = @Deprecated)
+@RequiredArgsConstructor
+@ToString(exclude = {"itens", "pagamentoCartao", "notaFiscal"})
 @Getter
 @Setter
 @Entity
@@ -24,28 +20,38 @@ public class Pedido {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @NonNull
   @Column(name = "data_pedido")
   private LocalDateTime dataPedido;
 
   @Column(name = "data_conclusao")
   private LocalDateTime dataConclusao;
 
-  @Column(name = "nota_fiscal_id")
-  private Long notaFiscalId;
-
+  @NonNull
+  @Column(name = "status")
   @Enumerated(EnumType.STRING)
   private StatusPedido status;
 
+  @NonNull
+  @Column(name = "total")
   private BigDecimal total;
 
+  @NonNull
   @Embedded
   private EnderecoEntregaPedido enderecoEntrega;
 
+  @NonNull
   @ManyToOne
   @JoinColumn(name = "cliente_id")
   private Cliente cliente;
 
   @OneToMany(mappedBy = "pedido")
   private List<ItemPedido> itens;
+
+  @OneToOne(mappedBy = "pedido")
+  private PagamentoCartao pagamentoCartao;
+
+  @OneToOne(mappedBy = "pedido")
+  private NotaFiscal notaFiscal;
 
 }

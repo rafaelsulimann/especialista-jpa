@@ -1,16 +1,24 @@
 package com.sulimann.iniciandocomjpa.entities;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(onConstructor_ = @Deprecated)
+@RequiredArgsConstructor
 @ToString
 @Getter
 @Setter
@@ -22,12 +30,17 @@ public class NotaFiscal {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "pedido_id")
-  private Long pedidoId;
+  @NonNull
+  @JoinColumn(name = "pedido_id")
+  @OneToOne
+  private Pedido pedido;
 
+  @NonNull
+  @Column(name = "xml")
   private String xml;
 
+  @NonNull
   @Column(name = "data_emissao")
-  private Date dataEmissao;
+  private LocalDateTime dataEmissao;
 
 }

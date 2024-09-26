@@ -5,8 +5,8 @@ import lombok.*;
 
 import java.util.List;
 
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(onConstructor_ = @Deprecated)
+@RequiredArgsConstructor
 @ToString(exclude = "pedidos")
 @Getter
 @Setter
@@ -17,9 +17,14 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NonNull
+    @Column(name = "nome")
     private String nome;
 
+    @NonNull
     @Enumerated(EnumType.STRING)
+    @Column(name = "sexo")
     private SexoCliente sexo;
 
     @OneToMany(mappedBy = "cliente")

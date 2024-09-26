@@ -3,14 +3,10 @@ package com.sulimann.iniciandocomjpa.entities;
 import java.math.BigDecimal;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(onConstructor_ = @Deprecated)
+@RequiredArgsConstructor
 @ToString
 @Getter
 @Setter
@@ -22,17 +18,22 @@ public class ItemPedido {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @NonNull
   @ManyToOne
   @JoinColumn(name = "pedido_id")
   private Pedido pedido;
 
+  @NonNull
   @ManyToOne
   @JoinColumn(name = "produto_id")
   private Produto produto;
 
+  @NonNull
   @Column(name = "preco_produto")
   private BigDecimal precoProduto;
 
+  @NonNull
+  @Column(name = "quantidade")
   private Integer quantidade;
 
 }

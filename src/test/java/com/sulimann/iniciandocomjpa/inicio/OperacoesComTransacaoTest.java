@@ -1,13 +1,13 @@
 package com.sulimann.iniciandocomjpa.inicio;
 
-import com.sulimann.iniciandocomjpa.entities.Produto;
-import com.sulimann.iniciandocomjpa.utils.EntityManagerTest;
-import org.glassfish.jaxb.core.v2.model.core.ID;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+import com.sulimann.iniciandocomjpa.entities.Produto;
+import com.sulimann.iniciandocomjpa.utils.EntityManagerTest;
 
 public class OperacoesComTransacaoTest extends EntityManagerTest {
 
@@ -34,12 +34,13 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 
     @Test
     public void mostrarDiferencaMerge(){
-        Produto produtoMerge = new Produto();
+        Produto produtoMerge = new Produto(
+            "Câmera Canon",
+            "A melhor definição para suas fotos",
+            new BigDecimal("5000.0")
+        );
 
         produtoMerge.setId(11L);
-        produtoMerge.setNome("Câmera Canon");
-        produtoMerge.setDescricao("A melhor definição para suas fotos");
-        produtoMerge.setPreco(new BigDecimal("5000.0"));
 
         super.entityManager.getTransaction().begin();
         produtoMerge = super.entityManager.merge(produtoMerge);
@@ -55,12 +56,13 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 
     @Test
     public void mostrarDiferencaPersist(){
-        Produto produtoPersist = new Produto();
+        Produto produtoPersist = new Produto(
+            "Câmera Canon",
+            "A melhor definição para suas fotos",
+            new BigDecimal("5000.0")
+        );
 
         //produtoPersist.setId(11L);
-        produtoPersist.setNome("Câmera Canon");
-        produtoPersist.setDescricao("A melhor definição para suas fotos");
-        produtoPersist.setPreco(new BigDecimal("5000.0"));
 
         super.entityManager.getTransaction().begin();
         super.entityManager.persist(produtoPersist);
@@ -75,12 +77,13 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 
     @Test
     public void inserirObjetoComMerge(){
-        Produto produto = new Produto();
+        Produto produto = new Produto(
+            "Câmera Canon",
+            "A melhor definição para suas fotos",
+            new BigDecimal("5000.0")
+        );
 
         produto.setId(11L);
-        produto.setNome("Câmera Canon");
-        produto.setDescricao("A melhor definição para suas fotos");
-        produto.setPreco(new BigDecimal("5000.0"));
 
         super.entityManager.getTransaction().begin();
         super.entityManager.merge(produto);
@@ -111,11 +114,13 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 
     @Test
     public void atualizarObjeto(){
-        Produto produto = new Produto();
+        Produto produto = new Produto(
+            "TESTE MERGE!",
+            "TESTE MERGE!",
+            new BigDecimal(0).setScale(2, RoundingMode.UP)
+        );
+
         produto.setId(1L);
-        produto.setNome("TESTE MERGE!");
-        produto.setDescricao("TESTE MERGE!");
-        produto.setPreco(new BigDecimal(0).setScale(2, RoundingMode.UP));
 
         super.entityManager.getTransaction().begin();
         super.entityManager.merge(produto);
@@ -145,12 +150,13 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 
     @Test
     public void inserirPrimeiroObjeto() {
-        Produto produto = new Produto();
+        Produto produto = new Produto(
+            "Câmera Canon",
+            "A melhor definição para suas fotos",
+            new BigDecimal("5000.0")
+        );
 
         // produto.setId(11L); -> Como a estratégia de geração de chave primária é IDENTITY, não é necessário setar o ID
-        produto.setNome("Câmera Canon");
-        produto.setDescricao("A melhor definição para suas fotos");
-        produto.setPreco(new BigDecimal("5000.0"));
 
         super.entityManager.getTransaction().begin();
         super.entityManager.persist(produto);

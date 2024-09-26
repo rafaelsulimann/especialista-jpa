@@ -1,26 +1,21 @@
 package com.sulimann.iniciandocomjpa.mapeandorelacionamento;
 
-import com.sulimann.iniciandocomjpa.entities.*;
-import com.sulimann.iniciandocomjpa.utils.EntityManagerTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import com.sulimann.iniciandocomjpa.entities.Categoria;
+import com.sulimann.iniciandocomjpa.utils.EntityManagerTest;
 
 public class MapeandoAutorelacionamentoTest extends EntityManagerTest {
 
     @Test
     public void inserirCategoriaComCategoriaPaiEObterCategoriaPaiECategoriasFilhas(){
-        Categoria categoriaPai = new Categoria();
-        categoriaPai.setNome("Eletrônicos");
+        Categoria categoriaPai = new Categoria("Eletrônicos");
 
-        Categoria categoria = new Categoria();
-        categoria.setNome("Celulares");
+        Categoria categoria = new Categoria("Celulares");
         categoria.setCategoriaPai(categoriaPai);
 
-        Categoria categoria2 = new Categoria();
-        categoria2.setNome("CURSO EAD");
+        Categoria categoria2 = new Categoria("CURSO EAD");
         categoria2.setCategoriaPai(categoriaPai);
 
         super.entityManager.getTransaction().begin();

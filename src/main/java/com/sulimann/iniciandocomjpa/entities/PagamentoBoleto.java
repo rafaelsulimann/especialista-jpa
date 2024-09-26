@@ -1,14 +1,10 @@
 package com.sulimann.iniciandocomjpa.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(onConstructor_ = @Deprecated)
+@RequiredArgsConstructor
 @ToString
 @Getter
 @Setter
@@ -20,12 +16,16 @@ public class PagamentoBoleto {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @NonNull
   @Column(name = "pedido_id")
   private Long pedidoId;
 
+  @NonNull
+  @Column(name = "status")
   @Enumerated(EnumType.STRING)
   private StatusPagamento status;
 
+  @NonNull
   @Column(name = "codigo_barras")
   private String codigoBarras;
 

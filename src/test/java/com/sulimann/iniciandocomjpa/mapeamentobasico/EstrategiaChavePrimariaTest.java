@@ -1,23 +1,24 @@
 package com.sulimann.iniciandocomjpa.mapeamentobasico;
 
-import com.sulimann.iniciandocomjpa.entities.Categoria;
-import com.sulimann.iniciandocomjpa.entities.Produto;
-import com.sulimann.iniciandocomjpa.utils.EntityManagerTest;
+import java.math.BigDecimal;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
+import com.sulimann.iniciandocomjpa.entities.Produto;
+import com.sulimann.iniciandocomjpa.utils.EntityManagerTest;
 
 public class EstrategiaChavePrimariaTest extends EntityManagerTest {
 
     @Test
     public void estrategiaChavePrimariaMergeComIdentity(){
-        Produto produto = new Produto();
+        Produto produto = new Produto(
+            "TESTE TOPZERA",
+            "O TESTE DO MERGE",
+            new BigDecimal("3000.0")
+        );
 
         //produto.setId(1L); -> Não é necessário informar o ID, pois a estratégia de chave primária é IDENTITY
-        produto.setNome("TESTE TOPZERA");
-        produto.setDescricao("O TESTE DO MERGE");
-        produto.setPreco(new BigDecimal("3000.0"));
 
         super.entityManager.getTransaction().begin();
         super.entityManager.merge(produto);

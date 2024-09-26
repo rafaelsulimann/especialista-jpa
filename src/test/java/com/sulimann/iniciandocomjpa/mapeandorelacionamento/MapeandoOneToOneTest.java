@@ -8,16 +8,17 @@ import org.junit.jupiter.api.Test;
 
 import com.sulimann.iniciandocomjpa.entities.Cliente;
 import com.sulimann.iniciandocomjpa.entities.EnderecoEntregaPedido;
-import com.sulimann.iniciandocomjpa.entities.ItemPedido;
+import com.sulimann.iniciandocomjpa.entities.NotaFiscal;
+import com.sulimann.iniciandocomjpa.entities.PagamentoCartao;
 import com.sulimann.iniciandocomjpa.entities.Pedido;
-import com.sulimann.iniciandocomjpa.entities.Produto;
+import com.sulimann.iniciandocomjpa.entities.StatusPagamento;
 import com.sulimann.iniciandocomjpa.entities.StatusPedido;
 import com.sulimann.iniciandocomjpa.utils.EntityManagerTest;
 
-public class MapeandoManyToOneTest extends EntityManagerTest {
+public class MapeandoOneToOneTest extends EntityManagerTest {
 
     @Test
-    public void inserirPedidoComCliente(){
+    public void criarPedidoEAssociarPagamentoCartao() {
         Cliente cliente = super.entityManager.find(Cliente.class, 1L);
         Assertions.assertNotNull(cliente);
 
@@ -36,24 +37,28 @@ public class MapeandoManyToOneTest extends EntityManagerTest {
             cliente
         );
 
+        PagamentoCartao pagamentoCartao = new PagamentoCartao(pedido, StatusPagamento.PROCESSANDO, "123456");
+
+        pedido.setPagamentoCartao(pagamentoCartao);
+
         super.entityManager.getTransaction().begin();
         super.entityManager.persist(pedido);
+        super.entityManager.persist(pagamentoCartao);
         super.entityManager.getTransaction().commit();
 
         super.entityManager.clear();
 
         Pedido pedidoVerificacao = super.entityManager.find(Pedido.class, pedido.getId());
         System.out.println(pedidoVerificacao);
-        System.out.println(pedidoVerificacao.getCliente());
         Assertions.assertNotNull(pedidoVerificacao);
-        Assertions.assertNotNull(pedidoVerificacao.getCliente());
+
+        Assertions.assertNotNull(pedidoVerificacao.getPagamentoCartao());
+        System.out.println(pedidoVerificacao.getPagamentoCartao());
     }
 
     @Test
-    public void inserirItensComPedidoEProduto(){
-        Produto produto = super.entityManager.find(Produto.class, 1L);
+    public void criarPedidoEAssociarNotaFiscal(){
         Cliente cliente = super.entityManager.find(Cliente.class, 1L);
-        Assertions.assertNotNull(produto);
         Assertions.assertNotNull(cliente);
 
         Pedido pedido = new Pedido(
@@ -71,28 +76,26 @@ public class MapeandoManyToOneTest extends EntityManagerTest {
             cliente
         );
 
-        ItemPedido itemPedido = new ItemPedido(
+        NotaFiscal notaFiscal = new NotaFiscal(
             pedido,
-            produto,
-            produto.getPreco(),
-            10
+            "XML TESTE!",
+            LocalDateTime.now()
         );
 
         super.entityManager.getTransaction().begin();
         super.entityManager.persist(pedido);
-        super.entityManager.persist(itemPedido);
+        super.entityManager.persist(notaFiscal);
         super.entityManager.getTransaction().commit();
 
         super.entityManager.clear();
 
-        ItemPedido itemPedidoVerificacao = super.entityManager.find(ItemPedido.class, itemPedido.getId());
-        Assertions.assertNotNull(itemPedidoVerificacao);
-        Assertions.assertNotNull(itemPedidoVerificacao.getPedido());
-        Assertions.assertNotNull(itemPedidoVerificacao.getProduto());
+        Pedido pedidoVerificacao = super.entityManager.find(Pedido.class, pedido.getId());
+        System.out.println(pedidoVerificacao);
+        Assertions.assertNotNull(pedidoVerificacao);
 
-        System.out.println(itemPedidoVerificacao);
-        System.out.println(itemPedidoVerificacao.getPedido());
-        System.out.println(itemPedidoVerificacao.getProduto());
+        System.out.println(pedidoVerificacao.getNotaFiscal());
+        Assertions.assertNotNull(pedidoVerificacao.getNotaFiscal());
 
     }
+
 }

@@ -1,14 +1,10 @@
 package com.sulimann.iniciandocomjpa.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(onConstructor_ = @Deprecated)
+@RequiredArgsConstructor
 @ToString
 @Getter
 @Setter
@@ -20,9 +16,12 @@ public class Estoque {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @NonNull
   @Column(name = "produto_id")
   private Long produtoId;
 
+  @NonNull
+  @Column(name = "quantidade")
   private Integer quantidade;
 
 }

@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -31,8 +32,13 @@ public class NotaFiscal {
   private Long id;
 
   @NonNull
-  @JoinColumn(name = "pedido_id")
+  // @JoinColumn(name = "pedido_id") -> Neste caso como vamos utilizar o @JoinTable, nós não precisamos utilizar o @JoinColumn
   @OneToOne
+  @JoinTable(
+    name = "pedido_nota_fiscal",
+    joinColumns = @JoinColumn(name = "nota_fiscal_id", unique = true),
+    inverseJoinColumns = @JoinColumn(name = "pedido_id", unique = true)
+  )
   private Pedido pedido;
 
   @NonNull

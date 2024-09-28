@@ -8,7 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -33,7 +32,7 @@ public class NotaFiscal {
 
   @NonNull
   @JoinColumn(name = "pedido_id")
-  @OneToOne
+  @OneToOne(optional = false)
   private Pedido pedido;
 
   @NonNull

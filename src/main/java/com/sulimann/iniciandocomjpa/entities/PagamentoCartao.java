@@ -17,7 +17,7 @@ public class PagamentoCartao {
   private Long id;
 
   @NonNull
-  @OneToOne
+  @OneToOne(optional = false)
   @JoinColumn(name = "pedido_id")
   private Pedido pedido;
 

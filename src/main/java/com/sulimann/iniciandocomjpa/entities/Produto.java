@@ -8,7 +8,7 @@ import java.util.List;
 
 @NoArgsConstructor(onConstructor_ = @Deprecated)
 @RequiredArgsConstructor
-@ToString(exclude = {"itens", "categorias"})
+@ToString(exclude = {"itens", "categorias", "estoque"})
 @Getter
 @Setter
 @Entity
@@ -39,5 +39,8 @@ public class Produto {
       joinColumns = @JoinColumn(name = "produto_id"),
       inverseJoinColumns = @JoinColumn(name = "categoria_id"))
   private List<Categoria> categorias;
+
+  @OneToOne(mappedBy = "produto")
+  private Estoque estoque;
 
 }

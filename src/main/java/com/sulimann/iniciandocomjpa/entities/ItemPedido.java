@@ -19,12 +19,12 @@ public class ItemPedido {
   private Long id;
 
   @NonNull
-  @ManyToOne
+  @ManyToOne(optional = false)
   @JoinColumn(name = "pedido_id")
   private Pedido pedido;
 
   @NonNull
-  @ManyToOne
+  @ManyToOne(optional = false)
   @JoinColumn(name = "produto_id")
   private Produto produto;
 

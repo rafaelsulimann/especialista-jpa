@@ -4,12 +4,15 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.sulimann.iniciandocomjpa.listeners.GerarNotaFiscalListener;
+
 import jakarta.persistence.*;
 import lombok.*;
 
 @NoArgsConstructor(onConstructor_ = @Deprecated)
 @RequiredArgsConstructor
-@ToString(exclude = {"itens", "pagamentoCartao", "notaFiscal"})
+@ToString(exclude = { "itens", "pagamentoCartao", "notaFiscal" })
+@EntityListeners({ GerarNotaFiscalListener.class })
 @Getter
 @Setter
 @Entity
